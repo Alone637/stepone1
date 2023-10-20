@@ -1,45 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
+import { Header } from "../components/Heading";
+import { AppButton } from "../components/AppButton";
+import { AppInput } from "../components/AppInput";
 
-const StepOne = () => {
+
+const StepOne = ({onGoNextPage}) => {
+const [userAnswer,setUserAnswer] = useState(null)
+
+const isNext1ButtonDisabled = !userAnswer
+
   return (
     <div className="container">
       <div className="wrapper">
         <div className="single-input-quiz">
-          <div className="indicator">
-            <div className="indicator__text">
-              <span className="indicator__description">
-                Скидка за прохождение опроса:
-              </span>
-              <span className="indicator__value">15%</span>
-            </div>
-            <div className="indicator__progressbar">
-              <div className="indicator__unit indicator__unit-1"></div>
-              <div className="indicator__unit indicator__unit-2"></div>
-              <div className="indicator__unit indicator__unit-3"></div>
-              <div className="indicator__unit indicator__unit-4"></div>
-            </div>
-          </div>
           <div className="question">
-            <h2>1. Занимательный вопрос</h2>
-            <label className="input-wrapper">
-              <input
-                required
-                type="text"
+            <Header type="h2" headerText="1. Занимательный вопрос"/>
+            <AppInput  
+                isRequired={true}
                 name="answer"
-                placeholder="Ваш ответ"
-              />
-              <span id="error-message">
-                Введите номер в правильном формате например
-              </span>
-            </label>
-            <button disabled id="next-btn">
-              Далее
-            </button>
+                type="text"
+                placeholderText="Ваш ответ"
+                errorText=" Введите номер в правильном формате например"
+                onChange={(e) => setUserAnswer(e.target.value)}
+            />
+            <AppButton 
+               isDisabled={isNext1ButtonDisabled} 
+               type="submit" 
+               id="next-btn" 
+               buttonText="Далее"
+               onClick={() => onGoNextPage()}
+            />
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default StepOne;
